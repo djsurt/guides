@@ -1,0 +1,16 @@
+body {
+	font-family: 'Roboto',arial,sans-serif;
+}
+
+.card {
+	background-color: #fcfcfc;
+	padding:30px;
+}
+.mainlinks {
+	font-size: 16pt;
+	line-height: 40px;
+}
+.mainlinks-icon {
+	font-size: 24pt;
+	line-height: 50px;
+}
