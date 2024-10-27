@@ -5,19 +5,19 @@
 View online at: [dreamstudio.com/guides](https://dreamstudio.com/guides)
 
 
-## Upcoming Starter Graphs
+## Starter Graphs
 
-From the article on Ramanujan, here are the 3 starter graphs I'd like to create using javascript - a line, a circle, and infinity (like we already made in the CoLab):
+From the [article on Ramanujan's math structures](https://www.quantamagazine.org/srinivasa-ramanujan-was-a-genius-math-is-still-catching-up-20241021/), here are the 3 starter graphs we're creating using javascript:
 
 "Algebraic varieties, or shapes cut out by polynomial equations that can be written as sums of variables raised to whole-number powers. 
 
-A line, for instance, is cut out by the equation x + y = 0, 
+**1. A line**, for instance, is cut out by the equation: &nbsp; x + y = 0, 
 
-A circle by x<sup>2</sup> + y^2 = 1, 
+**2. A circle** by: &nbsp; x<sup>2</sup> + y<sup>2</sup> = 1, 
 
-A figure eight by x^4 = x^2 − y^2. 
+**3. A figure eight** by: &nbsp; x<sup>4</sup> = x<sup>2</sup> − y<sup>2</sup>. 
 
 While the line and circle are completely smooth, the figure eight has a point where it intersects itself — a singularity."
 
 
-[Our CoLab](https://colab.research.google.com/drive/1YiAfr1mCJvCFVJVNpiR86qB-faOAgxQX?usp=sharing) with figure eight
+[Our figure eight CoLab](https://colab.research.google.com/drive/1YiAfr1mCJvCFVJVNpiR86qB-faOAgxQX?usp=sharing) rendering a figure eight.
