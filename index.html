@@ -8,15 +8,9 @@
 	To add a browser tab favicon (like eyeballs above), cut and paste from emojipedia.org
 -->
 <title>Planet Earth - Guides</title>
-<link type="text/css" rel="stylesheet" href="/localsite/css/base.css" />
-<script type="text/javascript" src="/localsite/js/d3.v5.min.js"></script>
-<script type="text/javascript" src="/localsite/js/jquery.min.js"></script>
-<script type="text/javascript" src="/localsite/js/localsite.js"></script>
-<script type="text/javascript" src="/localsite/js/showdown.min.js"></script>
-<script type="text/javascript" src="/localsite/js/navigation.js"></script>
-<!--
-<link rel="stylesheet" type="text/css" href="/localsite/css/bootstrap.darkly.min.css"/>
--->
+<link type="text/css" rel="stylesheet" href="/localsite/css/base.css" id="/localsite/css/base.css" />
+<script type="text/javascript" src="/localsite/js/localsite.js?showheader=true"></script>
+
 <link rel="stylesheet" href="css/guides.css" />
 
 <style>
@@ -24,18 +18,17 @@
 </style>
 
 <meta name="description" content="One sheet summary of everything equations.">
-<meta name="keywords" content="Test, Prep, Study Guides, General Math, Cheatsheat, Overview">
+<meta name="keywords" content="Test Prep, Study Guides, General Math, Cheatsheat, Overview">
 
-
-
-
+<script>
+loadMarkdown("README.md", "readmeDiv", "_parent");
+</script>
 </head>
 
 
 <body>
 
 <div class="content contentpadding">
-	<h1>Guides</h1>
 	
 	<div class="mainlinks">
 		<a href="math">&#10148; Math Guides</a><br>
@@ -46,6 +39,8 @@
 		<a href="energy">&#10148; Energy Guides</a><br>
 	</div>
 	<br>
+
+	<div id="readmeDiv"></div>
 
 	<!-- LaTex Samples -->
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML"></script>
@@ -116,6 +111,7 @@
 
 	<!-- LaTex Samples -->
 
+  
 </div>
 
 <br><br>
