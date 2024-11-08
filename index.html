@@ -118,5 +118,140 @@ loadMarkdown("README.md", "readmeDiv", "_parent");
 
 </div>
 
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<canvas id="circle-graph" width="100" height="100"></canvas>
+
+<canvas id="lineChart" width="100" height="100"></canvas>
+
+<canvas id="graphChart" width="100" height="100"></canvas>
+
+<script>
+	const ctx = document.getElementById('circle-graph').getContext('2d');
+
+	// Generate data points for the unit circle
+	const points = [];
+	for (let theta = 0; theta <= 2 * Math.PI; theta += 0.01) {
+		const x = Math.cos(theta);
+		const y = Math.sin(theta);
+		points.push({x, y});
+	}
+
+	const myChart = new Chart(ctx, {
+		type: 'scatter', // Scatter plot for points
+		data: {
+			datasets: [{
+				label: 'Unit Circle',
+				data: points, // Use the generated points
+				backgroundColor: 'rgba(75, 192, 192, 1)', // Points color
+				borderColor: 'rgba(75, 192, 192, 1)',
+				borderWidth: 1,
+				pointRadius: 2 // Size of the points
+			}]
+		},
+		options: {
+			responsive: true,
+			scales: {
+				x: {
+					min: -1.5, // Set axis limits to ensure the circle is centered
+					max: 1.5
+				},
+				y: {
+					min: -1.5,
+					max: 1.5
+				}
+			},
+			plugins: {
+				legend: {
+					display: false // Hide the legend
+				}
+			}
+		}
+	});
+
+	const ctx2 = document.getElementById('lineChart');
+	const points2 = [];
+	for(let i = -10; i <= 10; i += 1){
+		const x = i;
+		const y = -i;
+		points2.push({x, y});
+	}
+
+	const lineChart = new Chart(ctx2, {
+		type: 'scatter', // Use scatter to allow individual data points
+		data: {
+			datasets: [{
+				label: 'Line: x + y = 0',
+				data: points2,
+				showLine: true, // Connect points to make a line
+				backgroundColor: 'rgba(54, 162, 235, 0.5)',
+				borderColor: 'rgba(54, 162, 235, 1)',
+				borderWidth: 2,
+				pointRadius: 0 // Hide individual points for a smooth line
+			}]
+		},
+		options: {
+			responsive: true,
+			scales: {
+				x: {
+					type: 'linear',
+					position: 'bottom',
+					min: -10,
+					max: 10
+				},
+				y: {
+					min: -10,
+					max: 10
+				}
+			}
+		}
+	});
+
+
+	// Third chart (x^4 = x^2 - y^2)
+	const ctx3 = document.getElementById('graphChart');
+	const points3 = [];
+	for (let x = -1; x <= 1; x += 0.01) {
+		const ySquare = x * x - x * x * x * x; // y^2 = x^2 - x^4
+		if (ySquare >= 0) {
+			const yPos = Math.sqrt(ySquare); // Positive root
+			const yNeg = -Math.sqrt(ySquare); // Negative root
+			points3.push({ x, y: yPos });
+			points3.push({ x, y: yNeg });
+		}
+	}
+
+	const graphChart = new Chart(ctx3, {
+		type: 'scatter',
+		data: {
+			datasets: [{
+				label: 'Equation: x^4 = x^2 - y^2',
+				data: points3,
+				showLine: false,
+				backgroundColor: 'rgba(75, 192, 192, 0.5)',
+				borderColor: 'rgba(75, 192, 192, 1)',
+				borderWidth: 2,
+				pointRadius: 2
+			}]
+		},
+		options: {
+			responsive: true,
+			scales: {
+				x: {
+					type: 'linear',
+					position: 'bottom',
+					min: -2,
+					max: 2
+				},
+				y: {
+					min: -2,
+					max: 2
+				}
+			}
+		}
+	});
+</script>
+
 </body>
 </html>
