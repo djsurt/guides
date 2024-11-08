@@ -1,10 +1,3 @@
-# Guides
-
-[One sheet summaries](math) of everything equations.
-
-View online at: [dreamstudio.com/guides](https://dreamstudio.com/guides)
-
-
 ## Starter Graphs
 
 From the [article on Ramanujan's math structures](https://www.quantamagazine.org/srinivasa-ramanujan-was-a-genius-math-is-still-catching-up-20241021/), here are the 3 starter graphs we're creating using javascript:
