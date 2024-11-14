@@ -14,11 +14,123 @@
 <link type="text/css" rel="stylesheet" href="/localsite/css/base.css" id="/localsite/css/base.css" />
 <script type="text/javascript" src="/localsite/js/localsite.js?showheader=true"></script>
 
+<!--Chart JS script -->
 <link rel="stylesheet" href="css/guides.css" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 
 <style>
   #footerX {display: none;}
 </style>
+
+<style>
+button{
+    border-radius: 20px;
+    transition: background-color 0.3s, box-shadow 0.3s, color 0.3s;
+}
+
+button:hover{
+    background-color: rgba(0, 0, 0, 0.1);
+    color: white;
+    box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.2); 
+    transform: scale(1.1);
+}
+
+/* Styling for the graph element */
+#graph {
+    width: 100%;
+    height: 800px;
+	width: 800px;
+}
+#graph:hover{
+    box-shadow: 0 0 11px rgba(33,33,33,.2); 
+}
+
+/* Style for the header with a specific class name */
+.header-style {
+    font-weight: bold;
+}
+
+/* Styling for the calculator section with a specific ID */
+#calculator {
+    background-color: #f7f7f7;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.reset-container{
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+.theme-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    position: relative;
+}
+
+#theme-icon {
+    width: 30px;
+    height: 30px;
+}
+
+.graphic-container {
+    display: none;
+}
+
+.graphic-container.active {
+    display: flex;
+}
+
+  
+  .theme-container {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.5s;
+  }
+  
+  .theme-container:hover {
+    opacity: 0.8;
+  }
+  
+  .shadow-dark {
+    background: linear-gradient(145deg, #23282c, #1e2125);
+    border: 2px purple solid;
+  }
+  
+  .shadow-light {
+    box-shadow: 7px 7px 15px -10px #bbcfda, -4px -4px 13px #ffffff;
+    border: 2px black solid;
+  }
+  
+  @keyframes change {
+    0% {
+      transform: scale(1);
+    }
+  
+    100% {
+      transform: scale(1.4);
+    }
+  }
+  
+  .change {
+    animation-name: change;
+    animation-duration: 1s;
+    animation-direction: alternate;
+  }
+</style>
+
 
 <meta name="description" content="One sheet summary of everything equations.">
 <meta name="keywords" content="Test Prep, Study Guides, General Math, Cheatsheat, Overview">
@@ -118,140 +230,58 @@ loadMarkdown("README.md", "readmeDiv", "_parent");
 
 </div>
 
+    <!-- Calculator Section -->
+    <section id="calculator" class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <h2 class="text-center mb-3">Graph Your Equations</h2>
+                <form id="calculatorForm">
+                    <div class="form-group">
+                        <label for="equations">Enter Equations (comma-separated):</label>
+                        <input type="text" class="form-control" id="equations" placeholder="e.g., y = x^2, y = sin(x)" required>
+                        <small class="form-text text-muted">Supported Functions: sin, cos, tan, sqrt, log, exp, pi, e, and more.</small>
+                    </div>
+                    <label for="smoothness">Smoothness:</label>
+                    <input type="number" id="smoothness" name="smoothness" placeholder="e.g., 0.001" step="0.001" min="0.0001">
+                    <div class="form-group">
+                        <label for="minX">Min X:</label>
+                        <input type="number" class="form-control" id="minX" value="-10">
+                    </div>
+                    <div class="form-group">
+                        <label for="maxX">Max X:</label>
+                        <input type="number" class="form-control" id="maxX" value="10">
+                    </div>
+                    <div class="form-group">
+                        <label for="graphType">Graph Type:</label>
+                        <select class="form-control" id="graphType">
+                            <option value="line">Line Chart</option>
+                            <option value="scatter">Scatter Plot</option>
+                            <option value="bar">Bar Chart</option>
+                            <option value="pie">Pie Chart</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Graph</button>
+                    <div class="reset-container">
+                        <button type="reset" class="btn btn-outline-secondary">Reset Equation</button>
+                        <button type="button" class="btn btn-info" id="resetBtn">Reset Graph</button>
+                    </div>
+                </form>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            </div>
+        </div>
+        <div class="row mt-4 graphic-container">
+            <div class="col-md-12">
+                <canvas id="graph" class="w-100 chart-container"></canvas>
+            </div>
+        </div>
+    </section>
 
-<canvas id="circle-graph" width="100" height="100"></canvas>
+    <!-- Bootstrap & jQuery JS -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-<canvas id="lineChart" width="100" height="100"></canvas>
-
-<canvas id="graphChart" width="100" height="100"></canvas>
-
-<script>
-	const ctx = document.getElementById('circle-graph').getContext('2d');
-
-	// Generate data points for the unit circle
-	const points = [];
-	for (let theta = 0; theta <= 2 * Math.PI; theta += 0.01) {
-		const x = Math.cos(theta);
-		const y = Math.sin(theta);
-		points.push({x, y});
-	}
-
-	const myChart = new Chart(ctx, {
-		type: 'scatter', // Scatter plot for points
-		data: {
-			datasets: [{
-				label: 'Unit Circle',
-				data: points, // Use the generated points
-				backgroundColor: 'rgba(75, 192, 192, 1)', // Points color
-				borderColor: 'rgba(75, 192, 192, 1)',
-				borderWidth: 1,
-				pointRadius: 2 // Size of the points
-			}]
-		},
-		options: {
-			responsive: true,
-			scales: {
-				x: {
-					min: -1.5, // Set axis limits to ensure the circle is centered
-					max: 1.5
-				},
-				y: {
-					min: -1.5,
-					max: 1.5
-				}
-			},
-			plugins: {
-				legend: {
-					display: false // Hide the legend
-				}
-			}
-		}
-	});
-
-	const ctx2 = document.getElementById('lineChart');
-	const points2 = [];
-	for(let i = -10; i <= 10; i += 1){
-		const x = i;
-		const y = -i;
-		points2.push({x, y});
-	}
-
-	const lineChart = new Chart(ctx2, {
-		type: 'scatter', // Use scatter to allow individual data points
-		data: {
-			datasets: [{
-				label: 'Line: x + y = 0',
-				data: points2,
-				showLine: true, // Connect points to make a line
-				backgroundColor: 'rgba(54, 162, 235, 0.5)',
-				borderColor: 'rgba(54, 162, 235, 1)',
-				borderWidth: 2,
-				pointRadius: 0 // Hide individual points for a smooth line
-			}]
-		},
-		options: {
-			responsive: true,
-			scales: {
-				x: {
-					type: 'linear',
-					position: 'bottom',
-					min: -10,
-					max: 10
-				},
-				y: {
-					min: -10,
-					max: 10
-				}
-			}
-		}
-	});
-
-
-	// Third chart (x^4 = x^2 - y^2)
-	const ctx3 = document.getElementById('graphChart');
-	const points3 = [];
-	for (let x = -1; x <= 1; x += 0.01) {
-		const ySquare = x * x - x * x * x * x; // y^2 = x^2 - x^4
-		if (ySquare >= 0) {
-			const yPos = Math.sqrt(ySquare); // Positive root
-			const yNeg = -Math.sqrt(ySquare); // Negative root
-			points3.push({ x, y: yPos });
-			points3.push({ x, y: yNeg });
-		}
-	}
-
-	const graphChart = new Chart(ctx3, {
-		type: 'scatter',
-		data: {
-			datasets: [{
-				label: 'Equation: x^4 = x^2 - y^2',
-				data: points3,
-				showLine: false,
-				backgroundColor: 'rgba(75, 192, 192, 0.5)',
-				borderColor: 'rgba(75, 192, 192, 1)',
-				borderWidth: 2,
-				pointRadius: 2
-			}]
-		},
-		options: {
-			responsive: true,
-			scales: {
-				x: {
-					type: 'linear',
-					position: 'bottom',
-					min: -2,
-					max: 2
-				},
-				y: {
-					min: -2,
-					max: 2
-				}
-			}
-		}
-	});
-</script>
+    <!-- Calculator JS -->
+    <script src="./calculator.js"></script>
 
 </body>
 </html>
