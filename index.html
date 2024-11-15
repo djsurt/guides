@@ -14,11 +14,123 @@
 <link type="text/css" rel="stylesheet" href="/localsite/css/base.css" id="/localsite/css/base.css" />
 <script type="text/javascript" src="/localsite/js/localsite.js?showheader=true"></script>
 
+<!--Chart JS script -->
 <link rel="stylesheet" href="css/guides.css" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 
 <style>
   #footerX {display: none;}
 </style>
+
+<style>
+button{
+    border-radius: 20px;
+    transition: background-color 0.3s, box-shadow 0.3s, color 0.3s;
+}
+
+button:hover{
+    background-color: rgba(0, 0, 0, 0.1);
+    color: white;
+    box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.2); 
+    transform: scale(1.1);
+}
+
+/* Styling for the graph element */
+#graph {
+    width: 100%;
+    height: 800px;
+	width: 800px;
+}
+#graph:hover{
+    box-shadow: 0 0 11px rgba(33,33,33,.2); 
+}
+
+/* Style for the header with a specific class name */
+.header-style {
+    font-weight: bold;
+}
+
+/* Styling for the calculator section with a specific ID */
+#calculator {
+    background-color: #f7f7f7;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.reset-container{
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+.theme-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    position: relative;
+}
+
+#theme-icon {
+    width: 30px;
+    height: 30px;
+}
+
+.graphic-container {
+    display: none;
+}
+
+.graphic-container.active {
+    display: flex;
+}
+
+  
+  .theme-container {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.5s;
+  }
+  
+  .theme-container:hover {
+    opacity: 0.8;
+  }
+  
+  .shadow-dark {
+    background: linear-gradient(145deg, #23282c, #1e2125);
+    border: 2px purple solid;
+  }
+  
+  .shadow-light {
+    box-shadow: 7px 7px 15px -10px #bbcfda, -4px -4px 13px #ffffff;
+    border: 2px black solid;
+  }
+  
+  @keyframes change {
+    0% {
+      transform: scale(1);
+    }
+  
+    100% {
+      transform: scale(1.4);
+    }
+  }
+  
+  .change {
+    animation-name: change;
+    animation-duration: 1s;
+    animation-direction: alternate;
+  }
+</style>
+
 
 <meta name="description" content="One sheet summary of everything equations.">
 <meta name="keywords" content="Test Prep, Study Guides, General Math, Cheatsheat, Overview">
@@ -117,6 +229,59 @@ loadMarkdown("README.md", "readmeDiv", "_parent");
 	<!-- LaTex Samples -->
 
 </div>
+
+    <!-- Calculator Section -->
+    <section id="calculator" class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <h2 class="text-center mb-3">Graph Your Equations</h2>
+                <form id="calculatorForm">
+                    <div class="form-group">
+                        <label for="equations">Enter Equations (comma-separated):</label>
+                        <input type="text" class="form-control" id="equations" placeholder="e.g., y = x^2, y = sin(x)" required>
+                        <small class="form-text text-muted">Supported Functions: sin, cos, tan, sqrt, log, exp, pi, e, and more.</small>
+                    </div>
+                    <label for="smoothness">Smoothness:</label>
+                    <input type="number" id="smoothness" name="smoothness" placeholder="e.g., 0.001" step="0.001" min="0.0001">
+                    <div class="form-group">
+                        <label for="minX">Min X:</label>
+                        <input type="number" class="form-control" id="minX" value="-10">
+                    </div>
+                    <div class="form-group">
+                        <label for="maxX">Max X:</label>
+                        <input type="number" class="form-control" id="maxX" value="10">
+                    </div>
+                    <div class="form-group">
+                        <label for="graphType">Graph Type:</label>
+                        <select class="form-control" id="graphType">
+                            <option value="line">Line Chart</option>
+                            <option value="scatter">Scatter Plot</option>
+                            <option value="bar">Bar Chart</option>
+                            <option value="pie">Pie Chart</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Graph</button>
+                    <div class="reset-container">
+                        <button type="reset" class="btn btn-outline-secondary">Reset Equation</button>
+                        <button type="button" class="btn btn-info" id="resetBtn">Reset Graph</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+        <div class="row mt-4 graphic-container">
+            <div class="col-md-12">
+                <canvas id="graph" class="w-100 chart-container"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bootstrap & jQuery JS -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Calculator JS -->
+    <script src="./calculator.js"></script>
 
 </body>
 </html>
