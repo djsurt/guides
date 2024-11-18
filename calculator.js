@@ -37,6 +37,7 @@ $(document).ready(function() {
                 `);
 
                 for (let x = minX; x <= maxX; x += smoothness) {
+                    x = Math.trunc(x * 10) / 10;
                     let result = equationFunc(x);
 
                     // Check if the result is a valid number within a reasonable range

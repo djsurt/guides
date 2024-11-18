@@ -243,7 +243,7 @@ loadMarkdown("README.md", "readmeDiv", "_parent");
                         <small class="form-text text-muted">Supported Functions: sin, cos, tan, sqrt, log, exp, pi, e, and more.</small>
                     </div>
                     <label for="smoothness">Smoothness:</label>
-                    <input type="number" id="smoothness" name="smoothness" value=".5" placeholderX="e.g., 0.1" step="0.1" min="0.1" stepOld="0.001" minOld="0.0001">
+                    <input type="number" id="smoothness" name="smoothness" value=".1" placeholderX="e.g., 0.1" step="0.1" min="0.1" stepOld="0.001" minOld="0.0001">
                     <div class="form-group">
                         <label for="minX">Min X:</label>
                         <input type="number" class="form-control" id="minX" value="-100">
@@ -273,7 +273,7 @@ loadMarkdown("README.md", "readmeDiv", "_parent");
             </div>
         </div>
         <div class="row mt-4 graphic-container">
-            <div class="col-md-12">
+            <div class="col-md-12" style="position: relative; height:80vh; width:80vw">
                 <canvas id="graph" class="w-100 chart-container"></canvas>
             </div>
         </div>
