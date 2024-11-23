@@ -238,13 +238,15 @@ loadMarkdown("README.md", "readmeDiv", "_parent");
                 <h2 class="text-center mb-3">Graph Your Equations</h2>
                 <form id="calculatorForm">
                     <div class="form-group">
-                        .5  -100  100   
+                          
                         <label for="equations">Enter Equations (comma-separated):</label>
                         <input type="text" class="form-control" id="equations" value="y= (1-x^2)^0.5" placeholderX="e.g., y = x^2, y = sin(x)" required>
                         <small class="form-text text-muted">Supported Functions: sin, cos, tan, sqrt, log, exp, pi, e, and more.</small>
                     </div>
+
+                    <!-- Bug: Changing .5 to .1 returns invalide after about 30 seconds. -->
                     <label for="smoothness">Smoothness:</label>
-                    <input type="number" id="smoothness" name="smoothness" value=".1" placeholderX="e.g., 0.1" step="0.1" min="0.1" stepOld="0.001" minOld="0.0001">
+                    <input type="number" id="smoothness" name="smoothness" value=".5" placeholderX="e.g., 0.1" step="0.1" min="0.1" stepOld="0.001" minOld="0.0001">
                     <div class="form-group">
                         <label for="minX">Min X:</label>
                         <input type="number" class="form-control" id="minX" value="-100">
@@ -263,7 +265,6 @@ loadMarkdown("README.md", "readmeDiv", "_parent");
                         </select>
                     </div>
 
-                    BUG: Click button twice.<br>
                     <button type="submit" class="btn btn-primary btn-block">Graph</button>
                     <div class="reset-container">
                         <button type="reset" class="btn btn-outline-secondary">Reset Equation</button>
