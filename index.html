@@ -37,7 +37,7 @@ button:hover{
 }
 
 /* Styling for the graph element */
-#graph {
+#graphDELETE {
     width: 100%;
     height: 800px;
 	width: 800px;
@@ -79,7 +79,7 @@ button:hover{
 }
 
 .graphic-container {
-    display: none;
+    displayX: none;
 }
 
 .graphic-container.active {
@@ -219,74 +219,73 @@ loadMarkdown("README.md", "readmeDiv", "_parent");
 	<br><br>
 
 	<a href="https://superuser.com/questions/340650/type-math-formulas-in-microsoft-word-the-latex-way">StackOverflow about using Word with LaTeX</a>
-	<br><br>
+	<br>
 	
 	Also 
 	 <a href="https://arachnoid.com/latex/">LaTeX generator</a>,  
 	 <a href="https://www.mathcha.io/">mathcha.io</a> and 
 	 <a href="https://snip.mathpix.com/">Snip Mathpix</a>
-	 <br>
+	 <br><br>
 
-	<!-- LaTex Samples -->
+    <!-- Calculator Section -->
+    <section style="border:1px solid #ccc; padding:10px">
+    <h2 class="text-center mb-3">Graph Equations</h2>
+
+    Need works. Use <a href="https://desmos.com">desmos.com</a> instead<br><br>
+
+    <form id="calculatorForm" style="line-height: 2.5em;">
+        <div class="form-group">
+              
+            <label for="equations">Enter Equations (comma-separated):</label>
+            <input type="text" class="form-control" id="equations" value="y= (1-x^2)^0.5" placeholderX="e.g., y = x^2, y = sin(x)" required><br>
+            <small class="form-text text-muted">Supported Functions: sin, cos, tan, sqrt, log, exp, pi, e, and more.</small>
+        </div>
+
+        <!-- Bug: Smoothness of .1 returns invalid. Takes about 30 seconds. -->
+        <label for="smoothness">Smoothness:</label>
+        <input type="number" id="smoothness" name="smoothness" value=".5" placeholderX="e.g., 0.1" step="0.1" min="0.1" stepOld="0.001" minOld="0.0001" style="max-width:50px">
+        <span class="form-group">
+            <label for="minX">Min X:</label>
+            <input type="number" class="form-control" id="minX" value="-100" style="max-width:50px">
+        </span>
+        <span class="form-group">
+            <label for="maxX">Max X:</label>
+            <input type="number" class="form-control" id="maxX" value="100" style="max-width:50px">
+        </span>
+        <div class="form-group">
+            <label for="graphType">Graph Type:</label>
+            <select class="form-control" id="graphType">
+                <option value="line">Line Chart</option>
+                <option value="scatter">Scatter Plot</option>
+                <option value="bar">Bar Chart</option>
+                <option value="pie">Pie Chart</option>
+            </select>
+        </div>
+
+        Click twice<br>
+        <button type="submit" style="float:left" class="btn btn-primary btn-block">Graph</button>
+        <div class="reset-container" style="float:left">
+            <button type="reset" class="btn btn-outline-secondary">Reset Equation</button>
+            <button type="button" class="btn btn-info" id="resetBtn">Reset Graph</button>
+        </div>
+    </form>
+
+    <div style="max-height: 500px;">
+        <canvas id="graph" class="w-100 chart-container"></canvas>
+    </div>
+
+    </section>
 
 </div>
 
-    <!-- Calculator Section -->
-    <section id="calculator" class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <h2 class="text-center mb-3">Graph Your Equations</h2>
-                <form id="calculatorForm">
-                    <div class="form-group">
-                          
-                        <label for="equations">Enter Equations (comma-separated):</label>
-                        <input type="text" class="form-control" id="equations" value="y= (1-x^2)^0.5" placeholderX="e.g., y = x^2, y = sin(x)" required>
-                        <small class="form-text text-muted">Supported Functions: sin, cos, tan, sqrt, log, exp, pi, e, and more.</small>
-                    </div>
+<!-- Bootstrap & jQuery JS -->
+<!--
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+-->
 
-                    <!-- Bug: Changing .5 to .1 returns invalide after about 30 seconds. -->
-                    <label for="smoothness">Smoothness:</label>
-                    <input type="number" id="smoothness" name="smoothness" value=".5" placeholderX="e.g., 0.1" step="0.1" min="0.1" stepOld="0.001" minOld="0.0001">
-                    <div class="form-group">
-                        <label for="minX">Min X:</label>
-                        <input type="number" class="form-control" id="minX" value="-100">
-                    </div>
-                    <div class="form-group">
-                        <label for="maxX">Max X:</label>
-                        <input type="number" class="form-control" id="maxX" value="100">
-                    </div>
-                    <div class="form-group">
-                        <label for="graphType">Graph Type:</label>
-                        <select class="form-control" id="graphType">
-                            <option value="line">Line Chart</option>
-                            <option value="scatter">Scatter Plot</option>
-                            <option value="bar">Bar Chart</option>
-                            <option value="pie">Pie Chart</option>
-                        </select>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary btn-block">Graph</button>
-                    <div class="reset-container">
-                        <button type="reset" class="btn btn-outline-secondary">Reset Equation</button>
-                        <button type="button" class="btn btn-info" id="resetBtn">Reset Graph</button>
-                    </div>
-                </form>
-
-            </div>
-        </div>
-        <div class="row mt-4 graphic-container">
-            <div class="col-md-12" style="position: relative; height:80vh; width:80vw">
-                <canvas id="graph" class="w-100 chart-container"></canvas>
-            </div>
-        </div>
-    </section>
-
-    <!-- Bootstrap & jQuery JS -->
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-    <!-- Calculator JS -->
-    <script src="./calculator.js"></script>
+<!-- Calculator JS -->
+<script src="./calculator.js"></script>
 
 </body>
 </html>
