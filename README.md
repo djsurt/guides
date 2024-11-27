@@ -1,5 +1,7 @@
 ## Starter Graphs
 
+View our study guides at [planet.live/guides](https://planet.live/guides)
+
 From the [article on Ramanujan's math structures](https://www.quantamagazine.org/srinivasa-ramanujan-was-a-genius-math-is-still-catching-up-20241021/), here are the 3 starter graphs we're creating using javascript:
 
 "Algebraic varieties, or shapes cut out by polynomial equations that can be written as sums of variables raised to whole-number powers. 
