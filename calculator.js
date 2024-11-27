@@ -20,6 +20,11 @@ $(document).ready(function() {
         let canvas = document.getElementById('graph').getContext('2d');
         let xValues = [];
         let datasets = [];
+        for(let i =0; i <= (maxX - minX)/smoothness; ++i){
+            let x = minX + i*smoothness;
+            x = Math.round(x * 10) / 10;
+            xValues.push(x);
+        }
 
         for (let equation of equations) {
             equation = equation.trim(); // Remove leading/trailing spaces
@@ -36,17 +41,13 @@ $(document).ready(function() {
                     }
                 `);
 
-                for (let i = 0; i <= (maxX - minX) / smoothness; i++) {
-                    let x = minX + i * smoothness; // Calculate x based on the counter
-                    x = Math.round(x * 10) / 10; // Round to 1 decimal place for consistency
+                for (let x of xValues) {
                     let result = equationFunc(x);
                 
                     // Check if the result is a valid number
                     if (!isNaN(result) && isFinite(result)) {
-                        xValues.push(x);
                         yValues.push(result);
                     } else {
-                        xValues.push(x);
                         yValues.push(0); // Handle invalid values by setting y to 0
                     }
                 }
