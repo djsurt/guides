@@ -246,11 +246,19 @@ loadMarkdown("README.md", "readmeDiv", "_parent");
         <input type="number" id="smoothness" name="smoothness" value=".5" placeholderX="e.g., 0.1" step="0.1" min="0.1" stepOld="0.001" minOld="0.0001" style="max-width:50px">
         <span class="form-group">
             <label for="minX">Min X:</label>
-            <input type="number" class="form-control" id="minX" value="-100" style="max-width:50px">
+            <input type="number" class="form-control" id="minX" value="-1" style="max-width:50px">
         </span>
         <span class="form-group">
             <label for="maxX">Max X:</label>
-            <input type="number" class="form-control" id="maxX" value="100" style="max-width:50px">
+            <input type="number" class="form-control" id="maxX" value="1" style="max-width:50px">
+        </span>
+        <span class="form-group">
+          <label for="minY">Min Y:</label>
+          <input type="number" class="form-control" id="minY" value="-1" style="max-width:50px">
+        </span>
+        <span class="form-group">
+          <label for="maxY">Max Y:</label>
+          <input type="number" class="form-control" id="maxY" value="1" style="max-width:50px">
         </span>
         <div class="form-group">
             <label for="graphType">Graph Type:</label>
