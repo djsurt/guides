@@ -36,9 +36,86 @@ function isImplicitFunction(equation) {
     }
 }
 
-function handleImplicitFunction(equation, minX, maxX, minY, maxY){
+//Add functionality to handle implicit functions
+function handleImplicitFunction(equationString, minX, maxX, minY, maxY) {
+    // Create arrays to store points that satisfy the equation
+    const points = [];
     
+    // Use math.js to parse the equation
+    const [leftSide, rightSide] = equationString.split('=').map(side => side.trim());
+    
+    // Create a function that evaluates the equation
+    const equationFunction = (x, y) => {
+      try {
+        // Evaluate the left side and right side of the equation
+        const leftValue = math.evaluate(leftSide, { x, y });
+        const rightValue = math.evaluate(rightSide, { x, y });
+        
+        // Return the difference (should be close to zero if the point satisfies the equation)
+        return Math.abs(leftValue - rightValue);
+      } catch (error) {
+        console.error('Error evaluating equation:', error);
+        return Infinity;
+      }
+    };
+    
+    // Step size for x and y (adjust for performance/precision)
+    const xStep = (maxX - minX) / 200;
+    const yStep = (maxY - minY) / 200;
+    
+    // Iterate through x and y ranges
+    for (let x = minX; x <= maxX; x += xStep) {
+      for (let y = minY; y <= maxY; y += yStep) {
+        // Check if the point satisfies the equation (close to zero)
+        if (equationFunction(x, y) < 0.01) {
+          points.push({ x, y });
+        }
+      }
+    }
+    return points;
+  }
+
+  function plotImplicitFunction(equation, minX, maxX, minY, maxY) {
+    // Get points
+    const points = handleImplicitFunction(equation, minX, maxX, minY, maxY);
+
+    // Prepare data for Chart.js
+    const xData = points.map(p => p.x);
+    const yData = points.map(p => p.y);
+    console.log(xData);
+    console.log(yData);
+    // Create the chart
+    const ctx = document.getElementById('functionPlot').getContext('2d');
+    new Chart(ctx, {
+        type: 'scatter',
+        data: {
+            datasets: [{
+                label: `Points satisfying ${equation}`,
+                data: points,
+                backgroundColor: 'blue',
+                pointRadius: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                x: {
+                    type: 'linear',
+                    position: 'center',
+                    min: minX,
+                    max: maxX
+                },
+                y: {
+                    type: 'linear',
+                    position: 'center',
+                    min: minY,
+                    max: maxY
+                }
+            }
+        }
+    });
 }
+  
     
     //generateGraph();
     function generateGraph(e) {
@@ -46,6 +123,8 @@ function handleImplicitFunction(equation, minX, maxX, minY, maxY){
         let equations = $('#equations').val().split(','); // Split equations by comma
         let minX = parseFloat($('#minX').val());
         let maxX = parseFloat($('#maxX').val());
+        let minY = parseFloat($('#minY').val());
+        let maxY = parseFloat($('#maxY').val());
         let selectedGraphType = $('#graphType').val(); // Read the selected graph type from the dropdown
         let smoothness = parseFloat($('#smoothness').val()) || 0.1; // Smoothness control for intervals
 
@@ -68,7 +147,8 @@ function handleImplicitFunction(equation, minX, maxX, minY, maxY){
             // Check for implicit function
             if(isImplicitFunction(equation)){
                 //Handle implicit function
-
+                plotImplicitFunction(equation, minX, maxX, minY, maxY);
+                continue;
             }
             let yValues = [];
 
