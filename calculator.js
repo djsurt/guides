@@ -1,9 +1,13 @@
 $(document).ready(function() {
-    let chart;
-    $('#calculatorForm').submit(function(e) {
-        e.preventDefault();
-        generateGraph();
-    });
+
+let chart;
+$('#calculatorForm').submit(function(e) {
+    e.preventDefault();
+    generateGraph();
+});
+$(document).on("change", "#graphType", function(event) {
+    generateGraph();
+});
 
 function isImplicitFunction(equation) {
     try {

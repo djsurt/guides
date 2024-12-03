@@ -234,13 +234,11 @@ loadMarkdown("README.md", "readmeDiv", "_parent");
     <section style="border:1px solid #ccc; padding:10px">
     <h2 class="text-center mb-3">Graph Equations</h2>
 
-    Needs work. Use <a href="https://desmos.com">desmos.com</a> instead<br><br>
-
     <form id="calculatorForm" style="line-height: 2.5em;">
         <div class="form-group">
               
             <label for="equations">Enter Equations (comma-separated):</label>
-            <input type="text" class="form-control" id="equations" value="y= (1-x^2)^0.5" placeholderX="e.g., y = x^2, y = sin(x)" required><br>
+            <input type="text" class="form-control" id="equations" value="y= (1-x^2)^0.5, y=x, y=-x, y= -((1-x^2)^0.5)" placeholderX="e.g., y = x^2, y = sin(x)" required style="font-size:1.5em; padding:4px 7px; width:100%"><br>
             <small class="form-text text-muted">Supported Functions: sin, cos, tan, sqrt, log, exp, pi, e, and more.</small>
         </div>
 
@@ -263,20 +261,24 @@ loadMarkdown("README.md", "readmeDiv", "_parent");
           <label for="maxY">Max Y:</label>
           <input type="number" class="form-control" id="maxY" value="1" style="max-width:50px">
         </span>
-        <div class="form-group">
+
+        <div style="clear:both"></div>
+        <div class="form-group" style="float:left;">
             <label for="graphType">Graph Type:</label>
             <select class="form-control" id="graphType">
                 <option value="line">Line Chart</option>
-                <option value="scatter">Scatter Plot</option>
                 <option value="bar">Bar Chart</option>
                 <option value="pie">Pie Chart</option>
+                <!--<option value="scatter">Scatter Plot</option>--><!-- Uncomment if we get it to display -->
             </select>
         </div>
-=
-        <button type="submit" style="float:left" class="btn btn-primary btn-block">Render</button>
-        <div class="reset-container" style="float:left">
-            <button type="reset" class="btn btn-outline-secondary">Reset Equation</button>
-            <button type="button" class="btn btn-info" id="resetBtn">Reset Graph</button>
+
+        <div style="float:left">
+            <button type="submit" class="btn btn-primary btn-block" style="float:left">Render</button>
+            <div class="reset-container" style="float:left">
+                <button type="reset" class="btn btn-outline-secondary">Reset Equation</button>
+                <button type="button" class="btn btn-info" id="resetBtn">Reset Graph</button>
+            </div>
         </div>
     </form>
 
