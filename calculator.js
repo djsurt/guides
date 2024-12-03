@@ -1,7 +1,8 @@
 $(document).ready(function() {
     let chart;
     $('#calculatorForm').submit(function(e) {
-        generateGraph(e);
+        e.preventDefault();
+        generateGraph();
     });
 
 function isImplicitFunction(equation) {
@@ -116,10 +117,9 @@ function handleImplicitFunction(equationString, minX, maxX, minY, maxY) {
     });
 }
   
-    
-    //generateGraph();
-    function generateGraph(e) {
-        e.preventDefault();
+    generateGraph(); // On initial page load
+    function generateGraph() {
+        //e.preventDefault();
         let equations = $('#equations').val().split(','); // Split equations by comma
         let minX = parseFloat($('#minX').val());
         let maxX = parseFloat($('#maxX').val());
