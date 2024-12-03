@@ -238,7 +238,7 @@ loadMarkdown("README.md", "readmeDiv", "_parent");
         <div class="form-group">
               
             <label for="equations">Enter Equations (comma-separated):</label>
-            <input type="text" class="form-control" id="equations" value="y= (1-x^2)^0.5, y=x, y=-x, y= -((1-x^2)^0.5)" placeholderX="e.g., y = x^2, y = sin(x)" required style="font-size:1.5em; padding:4px 7px; width:100%"><br>
+            <input type="text" class="form-control" id="equations" value="y=(x * (1-x^2))^0.5, y=-((x * (1-x^2))^0.5), y=((-x * (1-x^2))^0.5), y=-((-x * (1-x^2))^0.5)" placeholderX="e.g., y = x^2, y = sin(x)" required style="font-size:1.5em; padding:4px 7px; width:100%"><br>
             <small class="form-text text-muted">Supported Functions: sin, cos, tan, sqrt, log, exp, pi, e, and more.</small>
         </div>
 
@@ -266,8 +266,8 @@ loadMarkdown("README.md", "readmeDiv", "_parent");
         <div class="form-group" style="float:left;">
             <label for="graphType">Graph Type:</label>
             <select class="form-control" id="graphType">
-                <option value="line">Line Chart</option>
                 <option value="bar">Bar Chart</option>
+                <option value="line">Line Chart</option>
                 <option value="pie">Pie Chart</option>
                 <!--<option value="scatter">Scatter Plot</option>--><!-- Uncomment if we get it to display -->
             </select>
@@ -292,7 +292,10 @@ loadMarkdown("README.md", "readmeDiv", "_parent");
     <div style="clear:both"></div>
     <br><br>
 
-    Sloppy infinity:<br>
+    Sloppy circle:<br>
+    y= (1-x^2)^0.5, y=x, y=-x, y= -((1-x^2)^0.5)<br><br>
+
+    Sloppy infinity (default):<br>
     y=(x * (1-x^2))^0.5, y=-((x * (1-x^2))^0.5), y=((-x * (1-x^2))^0.5), y=-((-x * (1-x^2))^0.5)
 </div>
 
