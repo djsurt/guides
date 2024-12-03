@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Implicit Function Plotter</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <canvas id="implicitFunctionChart" width="600" height="400"></canvas>
+
+    <script>
+        function handleImplicitFunction(equation, minX, maxX, minY, maxY) {
+            // Create arrays to store points that satisfy the equation
+            const points = [];
+            
+            // Step size for x and y (adjust for performance/precision)
+            const xStep = (maxX - minX) / 200;
+            const yStep = (maxY - minY) / 200;
+            
+            // Iterate through x and y ranges
+            for (let x = minX; x <= maxX; x += xStep) {
+                for (let y = minY; y <= maxY; y += yStep) {
+                    // Check if the point satisfies the equation (close to zero)
+                    if (Math.abs(equation(x, y)) < 0.01) {
+                        points.push({ x, y });
+                    }
+                }
+            }
+            
+            // Create chart using Chart.js
+            const ctx = document.getElementById('implicitFunctionChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'scatter',
+                data: {
+                    datasets: [{
+                        label: 'Implicit Function',
+                        data: points,
+                        backgroundColor: 'blue',
+                        pointRadius: 2
+                    }]
+                },
+                options: {
+                    scales: {
+                        x: {
+                            type: 'linear',
+                            position: 'bottom',
+                            min: minX,
+                            max: maxX
+                        },
+                        y: {
+                            min: minY,
+                            max: maxY
+                        }
+                    }
+                }
+            });
+        }
+
+        // Example: Circle equation x^2 + y^2 = 1
+        function circleEquation(x, y) {
+            return x*x + y*y - 1;
+        }
+        
+        // Plot the circle
+        handleImplicitFunction(circleEquation, -2, 2, -2, 2);
+    </script>
+</body>
+</html>
