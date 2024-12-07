@@ -89,36 +89,37 @@ function handleImplicitFunction(equationString, minX, maxX, minY, maxY) {
     const yData = points.map(p => p.y);
     console.log(xData);
     console.log(yData);
+    return [xData, yData];
     // Create the chart
-    const ctx = document.getElementById('graph').getContext('2d');
-    new Chart(ctx, {
-        type: 'scatter',
-        data: {
-            datasets: [{
-                label: `Points satisfying ${equation}`,
-                data: points,
-                backgroundColor: 'blue',
-                pointRadius: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            scales: {
-                x: {
-                    type: 'linear',
-                    position: 'center',
-                    min: minX,
-                    max: maxX
-                },
-                y: {
-                    type: 'linear',
-                    position: 'center',
-                    min: minY,
-                    max: maxY
-                }
-            }
-        }
-    });
+    // const ctx = document.getElementById('graph').getContext('2d');
+    // new Chart(ctx, {
+    //     type: 'scatter',
+    //     data: {
+    //         datasets: [{
+    //             label: `Points satisfying ${equation}`,
+    //             data: points,
+    //             backgroundColor: 'blue',
+    //             pointRadius: 1
+    //         }]
+    //     },
+    //     options: {
+    //         responsive: true,
+    //         scales: {
+    //             x: {
+    //                 type: 'linear',
+    //                 position: 'center',
+    //                 min: minX,
+    //                 max: maxX
+    //             },
+    //             y: {
+    //                 type: 'linear',
+    //                 position: 'center',
+    //                 min: minY,
+    //                 max: maxY
+    //             }
+    //         }
+    //     }
+    // });
 }
   
     generateGraph(); // On initial page load
@@ -149,32 +150,35 @@ function handleImplicitFunction(equationString, minX, maxX, minY, maxY) {
         for (let equation of equations) {
             equation = equation.trim(); // Remove leading/trailing spaces
             // Check for implicit function
-            if(isImplicitFunction(equation)){
-                //Handle implicit function
-                plotImplicitFunction(equation, minX, maxX, minY, maxY);
-                continue;
-            }
-            let yValues = [];
-
-            // Preprocess the equation to replace `^` with `**` for exponentiation
-            let processedEquation = equation.replace(/\^/g, '**');
 
             try {
-                // Create a new function for evaluating the equation
-                let equationFunc = new Function('x', `
-                    with (Math) { 
-                        return ${processedEquation}; 
-                    }
-                `);
+                if(isImplicitFunction(equation)){
+                    //Handle implicit function
+                    result = plotImplicitFunction(equation, minX, maxX, minY, maxY);
+                    xValues = result[0];
+                    let yValues = result[1];
+                }
+                else{
+                    let yValues = [];
+        
+                    // Preprocess the equation to replace `^` with `**` for exponentiation
+                    let processedEquation = equation.replace(/\^/g, '**');
+                    // Create a new function for evaluating the equation
+                    let equationFunc = new Function('x', `
+                        with (Math) { 
+                            return ${processedEquation}; 
+                        }
+                    `);
 
-                for (let x of xValues) {
-                    let result = equationFunc(x);
-                
-                    // Check if the result is a valid number
-                    if (!isNaN(result) && isFinite(result)) {
-                        yValues.push(result);
-                    } else {
-                        yValues.push(0); // Handle invalid values by setting y to 0
+                    for (let x of xValues) {
+                        let result = equationFunc(x);
+                    
+                        // Check if the result is a valid number
+                        if (!isNaN(result) && isFinite(result)) {
+                            yValues.push(result);
+                        } else {
+                            yValues.push(0); // Handle invalid values by setting y to 0
+                        }
                     }
                 }
 
