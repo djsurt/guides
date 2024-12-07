@@ -154,9 +154,9 @@ function handleImplicitFunction(equationString, minX, maxX, minY, maxY) {
             try {
                 if(isImplicitFunction(equation)){
                     //Handle implicit function
-                    // result = plotImplicitFunction(equation, minX, maxX, minY, maxY);
-                    // xValues = result[0];
-                    // yValues = result[1];
+                    result = plotImplicitFunction(equation, minX, maxX, minY, maxY);
+                    xValues = result[0];
+                    yValues = result[1];
                 }
                 else{
         
