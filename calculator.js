@@ -150,16 +150,15 @@ function handleImplicitFunction(equationString, minX, maxX, minY, maxY) {
         for (let equation of equations) {
             equation = equation.trim(); // Remove leading/trailing spaces
             // Check for implicit function
-
+            let yValues = [];
             try {
                 if(isImplicitFunction(equation)){
                     //Handle implicit function
                     result = plotImplicitFunction(equation, minX, maxX, minY, maxY);
                     xValues = result[0];
-                    let yValues = result[1];
+                    yValues = result[1];
                 }
                 else{
-                    let yValues = [];
         
                     // Preprocess the equation to replace `^` with `**` for exponentiation
                     let processedEquation = equation.replace(/\^/g, '**');
