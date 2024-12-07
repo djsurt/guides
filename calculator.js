@@ -90,7 +90,7 @@ function handleImplicitFunction(equationString, minX, maxX, minY, maxY) {
     console.log(xData);
     console.log(yData);
     // Create the chart
-    const ctx = document.getElementById('functionPlot').getContext('2d');
+    const ctx = document.getElementById('graph').getContext('2d');
     new Chart(ctx, {
         type: 'scatter',
         data: {
